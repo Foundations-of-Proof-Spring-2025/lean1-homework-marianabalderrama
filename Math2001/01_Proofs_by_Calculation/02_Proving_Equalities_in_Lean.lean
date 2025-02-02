@@ -31,10 +31,10 @@ example {a b : ℚ} (h1 : a - b = 4) (h2 : a * b = 1) :
 example {r s : ℝ} (h1 : s = 3) (h2 : r + 2 * s = -1) :
 r = -7 := by
   calc
-    r = r + 2 * s - 2 * s := by sorry
-    _ = -1 - 2 * s := by sorry
-    _ = -1 - 2 * 3 := by sorry
-    _ = -7 := by sorry
+    r = r + 2 * s - 2 * s := by ring
+    _ = -1 - 2 * s := by rw [h2]
+    _ = -1 - 2 * 3 := by rw [h1]
+    _ = -7 := by norm_num
   done
 
 -- Example 1.2.4.
@@ -42,5 +42,11 @@ r = -7 := by
 
 example {a b c d e f : ℤ} (h1 : a * d = b * c) (h2 : c * f = d * e) :
     d * (a * f - b * e) = 0 := by
-  sorry
+  calc
+    d * (a * f - b * e) = d * a * f - d * b * e := by ring
+    d = (b * c) * f - d * b * e := by rw [h1]
+    _ = b * (c * f) - d * b * e := by ring
+    _ = b * (d * e) - d * b * e := by rw [ h2 ]
+    _ = b * d * e - d * b * e := by ring
+    _ = 0 := by ring
   done
