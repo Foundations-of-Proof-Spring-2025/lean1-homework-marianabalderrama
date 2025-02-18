@@ -44,9 +44,8 @@ example {a b c d e f : ℤ} (h1 : a * d = b * c) (h2 : c * f = d * e) :
     d * (a * f - b * e) = 0 := by
   calc
     d * (a * f - b * e) = d * a * f - d * b * e := by ring
-    d = (b * c) * f - d * b * e := by rw [h1]
-    _ = b * (c * f) - d * b * e := by ring
-    _ = b * (d * e) - d * b * e := by rw [ h2 ]
-    _ = b * d * e - d * b * e := by ring
+    _ = (a * d) * f - (d * e) * b := by ring
+    _ = (b * c) * f - (c * f) * b := by rw [h1, h2]
+    _ = b * c * f - b * c * f := by ring
     _ = 0 := by ring
   done
